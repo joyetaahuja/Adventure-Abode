@@ -11,7 +11,7 @@ Implemented a travel management system where different hotel stays are displayed
   - Integrated a secure authentication system enabling user signup, login, and logout functionalities, ensuring that only logged-in users can add reviews and only listing owners can modify or delete their listings.
   
 ## Technologies Used
-- **Frontend:** React.js,Redux
+- **Frontend:** EJS,CSS,JS
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
 - **Authentication:** Passport.js
