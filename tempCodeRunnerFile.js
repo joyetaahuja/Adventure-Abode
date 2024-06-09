@@ -1,0 +1,1 @@
+const db_url = process.env.ATLASDB_URL;

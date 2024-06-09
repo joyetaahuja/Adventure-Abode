@@ -1,0 +1,262 @@
+49
+1.ejs mate app.set and requier which include partials yani aise 
+2.elemnts of ejs jo poori webiste main common h unke liye ejs mate
+3.boilerplate.ejs ki website ka har page aisa dikhe aur fir ussmain changes kar 
+4.sakte h accordingly but fir vai page har page pe dikhega content display hee ni 
+ho paega toh use layout ki content hamara ho,baki layout aapka in each ejs page
+
+5. public folder for storing static files like images,css , js logic
+public folder ki static files ko app.js main use karne ke liye wirte app.use public folder
+6. style.css main voh css hai jo sabpe honi chaiye,toh usee boilerplate.ejs pe llinnk kia
+
+7.include bootstrap in boiler
+8. views ke andar ek naya folder banaynge includes,usme navabr.ejs
+navbar ko boilerplate ki body main include karlo
+navbar ke elements ke href main apne routes dalo ki yaha jaye click hone pe
+fontawsome ke cdn ko include in boilerplate.ejs
+9. apply css of navbar in style.css
+10.footer.ejs include footer in boiler
+\
+11. index.ejs card from boot,styling in style.css
+12.image pe click karne se uska show option khul jaye,for this card ko anchor tag
+main daldo aur path dedo show route ka
+
+new.ejs ki styling form ke elements ko row aur col ke elements ki tarh treat karke
+align kia
+
+edit.ejs ki styling same tareke se row col se, form control class labels lagake
+style show.ejs
+
+
+
+50
+Client side validation, user jo data bhje voh sahi ho aur compltee ho
+server side validation,data schema ke hisab se store ho aur error handling ache se
+new.ejs ka form validation by bootstap ka form validtaion
+bootstrap classes add ki validation ki aur js ka logic copy karlai
+
+Server side validations, form ke through ab galat dta backend ke pas nahi jaega
+but still, postman se direct api call se jasakta h, hence we will do server sidevalidation
+erroe middleware,wrapAsync ke through error handling, ExpressError class ke through handling
+
+
+error.ejs ysing bootstarp alerts
+
+Valodation for mongoose listing model hai uski fields saari hini chiaye tabhi aapkanay e data 
+ko add karpao varna nai
+use JOI for that,joi se hum ek schema define karte hai,jo mongoose ka schema nahi hota
+but server side validation ke liye schema hota h,apka schema aisa hona chaiye
+jisschema ko validateb karna hai use joy main banado
+agar schema vaisa hoga toh changes karpaoge else erroe
+
+Review ka schema banalia
+listing and review model main one to many ka relation hai
+1 listing ke liye multiple revie ho skate h
+app 1 can be used of relations ki lsiting schema main reviews ka array add kardia
+
+ab review lene ke liye create form in show.ejs
+form submit ho toh ek post req jaye at listing/id/review pe ki iss id wali listing main ek review
+addd akrdo
+
+now validate review both server side and client side
+client side toh form main hee validation,server side throiugh joi 
+review ka form ko validate in show.ejs , ab koi backend se na karde 
+hopscotch se empty review submit uske liye hence server side validation through joi
+step 1 joi likha
+step 2 validation ka fun banaya
+step 3 as mid ware pas kia
+
+now we will show the review of a listing in show.ejs
+jo review add karoge voh dikhe uskii sirf id na dikhe uske liye use populate method
+
+add styling for reviews
+
+now review delte karne ke liye ek delte button 
+jab listing delet karte the toh btn click karte hee req jati thi listing/id pe
+but now review is a part of listing ab delte button dabnae pe req jaegao at
+listing/id/review/revew_id
+ki iss listing ke iss rev ko delete kardo, form delte req ko support kare 
+uske liye method oveeride
+
+if you delte a review, toh voh rev sirf rev model se delte na ho but voh jis listing ka voh rev h uss listing 
+se bhi delte ho jaye yeh toh delte route main hee handle
+
+also agar maine koi listing delte kardi toh ussse related sare rev delete hojane chiye
+yeh karne ke liye listing schema main post mongoose mw bandod
+
+
+now we will restructure our listing
+listing ke jitne bhi routes the unhe routes folder main dalke fir export karke
+reqy=uire karlenge just replace app. with router.
+use expess router object and usko app.use aur router main /listing can be replaced by just /
+jo cheeze require karoge path dekhlena sai ho
+
+same tareeke se reviews wali requests ko restructure kardo,sare routes main jo common ho
+ussse hatake slash lagadet h, common part uthake app.use main likhdo
+ab app.js main jo req karre ho aur unki need ni h remove
+
+
+add session in project
+req karoge
+sess options defin karoge
+use sess by tthis app.use(session(sessionOptions));
+ab inspect pe jake application pe jake cookies pe jao, agar vaha coonnect.sid 
+ki cooki ari h matlab sess work kare h
+
+using connect flash in projectjais ehee create new list karo toh msg flash hojaye
+new lsiting created,install it req it use it by app.use
+flash hamesha pehle ayga routes badme,flash ka midw banao key pass karo
+res.local se variable pass hojega aur voh key wala msg pop hojega
+
+step 1 flash downlod
+require
+app.use
+jaha pop up akaraoge in route likhoge ki redirect se pjjhkle
+flash msg hamesha res.redirect se phle ayga
+mid wa banaoge res.local ke like
+show .ejs main dikhage  wajaha use karloge
+yeh msg sirf ek hee bar ayga refresh karne pe chal jega
+
+succes saur faliuire ka include ya oartial banalo aur usse boilerllate main lelo
+manlo koi listing apne delte kardi now u are truying to acces it toh error ayga
+we want eerr na aaye balki aye ek badia sa err msg pop up 
+route main flash likhdo
+app .js main res.loc err karlen
+
+do same for edit route ki jo listing exist he ni karti usse edit karne jaoge tohflash 
+aye err ka aur vapis home pe ao
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AUTHENTICATION
+NPM I PASSPOSRT,PASS LOCAL,PASS LOCLA MONGOSE
+CREATE user model using passport local mongoose,user ko kaise bhi define kar sakte ho
+but pass local mongoose khud se username aur password ki fields bandeta h u need not make it
+baki attibutes khud dalo, voh hashing salting sab khud hee implemnt kardega
+pas local mongoose hamare schema main kuch default methods bhi add karta h
+for eg set pass change pass etc
+
+passport use karne se pehle session imple hona chaiye
+
+1.teeno ko req karlo in app
+2.use passport.initialise() as a midw
+3.app.use pass sess
+4. use the strategy passport.use(new LocalStrategy(User.authenticate()));
+5.serialise and deserialise user
+serialise matlab user se related info sess main store karana jab sesion khatam 
+hojaye toh voh stored info udado matlab desrialise
+
+create a user /demouser details dalo
+
+SIGNUP
+Get req /signup jisse ek form ayga user can fill details
+form fill karne ke bad post req at / signup jo uss form ke data ko mere data base
+main store kara degi
+jitne model utne route.js
+user.js banenge usse req 
+signup ka form banalo
+post route create karo in user.js extract info from form usse naya user create karoaur usse db main dalo
+iss signup post route main error handling khud karo instead of using wrap wrapAsyncwarap 
+asynnc toh laag page pe fek dega, we want ki agar koi already signed in h aur
+same name se again signing toh ek custom erroro falsh ho
+
+login page,get req jispe ek form khule usme details dalo
+form ke khulte hee, post req jaye aur voh user save hoaye
+login.ejs banalo,/login ka get uar post req likhlo
+post req main for authenti use passport as midw
+
+abhi koi bbhii user new llisting ko add kar sakt hai
+but we want ki only logged in user should be able to add new listing
+use passport ka fun req.isauth before rendering new.ejs
+same for edit update and delete
+yeh same kaam har route main likhne se acha hi ek alag fun main likho uar uuse saarireq main
+as midw pass kardo,usko alag file main likhke req
+make logout route
+add login logout as buttons in navbar
+but we dont want to show all thse three buttons together at the same time
+login h sirf logout dikhe
+nai hi toh dikhe aise
+req.user ka ob agar undef matlab not logged inelse loggggedin
+sinup kke baad automatic login hojana chaiuye by using req.login function of apssport
+n sinup route
+
+if you try to add new listing but you are not logged in so you loginbut after
+logging in u go to listing page which should not be the case
+you should come back to that page onlysimilarly, if you try to edit but you are
+not logged in you do login uske baad you get redirected to home which should not be
+you should come backto edit page only
+
+this can be handled in login ka middw.js
+req main path stor ehota h
+if not loge din then store the path jaha jana hai usse use karke redirect
+aagr loged in toh need not do all this
+but ek bar login hogaye toh passport session ko reset kardega toh sav e bhikar 
+rakha hoga toh ud jaega hence usko res.local
+
+har listing ka ek owner hoga jisne uss listing ko create kia h vai usse edit
+ya delet kar pae,owner hoga listing schema main but voh ref lega user schema se
+data ko reintialise karlo in init folder saare data ko owner dedo
+
+AUTHORIZATION
+Edit aur delet button ko hhide kardo if agar aap uss listing ke ownwer nahi ho
+agar ownwer ki id aur jo current user h uski id same toh allow ele sedont
+owner ki id show.ejs se cure user ki res.local se
+hide karna is not the solution, hopscotch se hojaegi gadbad
+
+ek midware create karke do in routes:isOwner ki agar owner ho toh hee kam karpaoge
+Har revieew ka ek auth banado in schema
+jo user logedin ni h voh review add na karsake,isloggedin midw use kar sakte ho
+aur uthor store katraloj isne review create kia jab rev create ho
+
+we want ki revie wke sath uske author ka bhi nam aaye  
+populate kardo using path
+jitne bhi routes hai unke callbacks ko, controllers main shift to make routes readable
+yeh karne ke liye module.exports main func banaou aur usme async se leke curly brace tak copy karlocall back ko
+fir require karkee use that function in route
+
+abhi image ka link add karsakte ho,but image upload karpao as a file uske liyte
+abhi create new listing ka form main image upload ni hosakti
+bcz voh backend ko files nahi bhj sakta
+sec problem mongodb main limite size se zyada ki file upload nahi karsakte
+step 1: form frontend se backend pe files bhj sakt
+step 2: third party main apni file save karalo, aur usse acces kar eke liye it will give  alink
+step 3: save this link in mongo
+
+
+form ko enctype kardo,but yeh file parse ni hopaegi uske liye use multer
+multer form ke data ko parse karega aur usse uplaods nam ke folder main save
+cloudinary ke redentials ko store karenge usinhg .env for privacy
+
+hum cod eko baatenge cloud wale acc ko access kaise karna h by cloudConfig.js
+now stor ecloud link in mongo change image schema ab usme link ni ek obj with link nad name
+reintialise dat awith new image schema an dmake change sin show.ejs new .ejs
+
+edit.ejs main url na bho proper image chnge karpo, usko same tareke se jaise new.ejske fornm ko 
+chnge kai tha
+
+edit main image edit kane se phel purani image dikh jae
